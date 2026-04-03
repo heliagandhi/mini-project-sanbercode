@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -10,7 +11,11 @@ import (
 var DB *sql.DB
 
 func ConnectDB() {
-	connStr := "host=localhost port=5432 user=postgres password=admin dbname=bioskop sslmode=disable"
+	connStr := os.Getenv("DATABASE_URL")
+
+	if connStr == "" {
+		log.Fatal("DATABASE_URL tidak ditemukan")
+	}
 
 	var err error
 	DB, err = sql.Open("postgres", connStr)

@@ -3,10 +3,16 @@ package main
 import (
 	"mini-project-sanbercode/database"
 	"mini-project-sanbercode/routers"
+	"os"
 )
 
 func main() {
 	database.ConnectDB()
 
-	routers.StartServer().Run(":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	routers.StartServer().Run(":" + port)
 }

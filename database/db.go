@@ -14,7 +14,7 @@ func ConnectDB() {
 	connStr := os.Getenv("DATABASE_URL")
 
 	if connStr == "" {
-		log.Fatal("DATABASE_URL tidak ditemukan")
+		connStr = "host=localhost port=5432 user=postgres password=admin dbname=bioskop sslmode=disable"
 	}
 
 	var err error
